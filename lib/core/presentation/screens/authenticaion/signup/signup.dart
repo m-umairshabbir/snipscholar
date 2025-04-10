@@ -104,7 +104,7 @@ class SignUpScreen extends StatelessWidget {
                           const SizedBox(height: 20),
                           const Row(
                             children: [
-                              Text('Already have an account?', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold,color: AppColors.textDark)),
+                              Text('Already have an account?', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold,color: AppColors.textDarkg)),
                               Text('  SignIn', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold,color: AppColors.teal)),
                             ],
                           ),
