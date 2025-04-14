@@ -1,21 +1,40 @@
-import 'package:equatable/equatable.dart';
+part of 'auth_bloc.dart';
 
-abstract class AuthState extends Equatable {
-  @override
-  List<Object> get props => [];
-}
-
-class AuthInitial extends AuthState {}
-
-class AuthLoading extends AuthState {}
-
-class AuthSuccess extends AuthState {}
-
-class AuthFailure extends AuthState {
+class AuthStates extends Equatable {
+  final String fullName;
+  final String email;
+  final String password;
+  final String confirmPassword;
   final String message;
+  final bool isLoading;
 
-  AuthFailure({required this.message});
+  const AuthStates({
+    this.fullName = '',
+    this.email = '',
+    this.password = '',
+    this.confirmPassword = '',
+    this.message = '',
+    this.isLoading = false,
+  });
+
+  AuthStates copyWith({
+    String? fullName,
+    String? email,
+    String? password,
+    String? confirmPassword,
+    String? message,
+    bool? isLoading,
+  }) {
+    return AuthStates(
+      fullName: fullName ?? this.fullName,
+      email: email ?? this.email,
+      password: password ?? this.password,
+      confirmPassword: confirmPassword ?? this.confirmPassword,
+      message: message ?? this.message,
+      isLoading: isLoading ?? this.isLoading,
+    );
+  }
 
   @override
-  List<Object> get props => [message];
+  List<Object?> get props => [fullName, email, password, confirmPassword, message, isLoading];
 }
