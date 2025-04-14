@@ -50,6 +50,9 @@ class CustomTextField extends StatelessWidget {
       onChanged: onChanged,
       validator:validator,
 
+      onTapOutside: (event){
+        FocusManager.instance.primaryFocus?.unfocus();
+      },
     );
   }
 }

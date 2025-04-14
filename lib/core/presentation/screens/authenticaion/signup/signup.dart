@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:snipscholar/core/Config/colors/colors.dart';
+import 'package:snipscholar/core/Config/route/route_names.dart';
 import 'package:snipscholar/core/bloc/visibility/visibility_bloc.dart';
 import 'package:snipscholar/core/bloc/visibility/visibility_event.dart';
 import 'package:snipscholar/core/bloc/visibility/visibility_state.dart';
@@ -155,18 +156,27 @@ class SignUpScreen extends StatelessWidget {
                               ),
                             ),
                             const SizedBox(height: 20),
-                            const Row(
+                            OverflowBar(
+                              spacing: 1,
+                              overflowSpacing: 1,
+                              alignment: MainAxisAlignment.center,
+                              overflowAlignment: OverflowBarAlignment.center,
                               children: [
-                                Text('Already have an account?',
+                                const Text('Already have an account?',
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold,
                                         color: AppColors.textDark)),
-                                Text('  SignIn',
+                                TextButton(
+                                  onPressed: (){
+                                    Navigator.pushNamedAndRemoveUntil(context, RouteNames.signInScreen, (route)=>false);
+                                  },
+                                  child:const Text('  SignIn',
                                     style: TextStyle(
                                         fontSize: 12,
                                         fontWeight: FontWeight.bold,
-                                        color: AppColors.teal)),
+                                        color: AppColors.teal)), )
+
                               ],
                             ),
                           ],
