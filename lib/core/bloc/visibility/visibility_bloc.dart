@@ -1,21 +1,19 @@
+import 'dart:async';
+import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'visibility_event.dart';
-import 'visibility_state.dart';
+part 'visibility_event.dart';
+part 'visibility_state.dart';
 
 class VisibilityBloc extends Bloc<VisibilityEvent, VisibilityState> {
-  VisibilityBloc() : super(const VisibilityInitial()) {
-    on<TogglePasswordVisibility>((event, emit) {
-      emit(PasswordVisibilityChanged(
-        isPasswordVisible: !state.isPasswordVisible,
-        isConfirmPasswordVisible: state.isConfirmPasswordVisible,
-      ));
-    });
+  VisibilityBloc() : super(const VisibilityState()) {
+    on<TogglePasswordVisibility>(_togglePassword);
+    on<ToggleConfirmPasswordVisibility>(_toggleConfirmPasswordVisibility);
+  }
+  FutureOr<void> _togglePassword(TogglePasswordVisibility event, Emitter<VisibilityState> emit) {
+    emit(state.copyWith(isPasswordVisible: !state.isPasswordVisible));
+  }
 
-    on<ToggleConfirmPasswordVisibility>((event, emit) {
-      emit(PasswordVisibilityChanged(
-        isPasswordVisible: state.isPasswordVisible,
-        isConfirmPasswordVisible: !state.isConfirmPasswordVisible,
-      ));
-    });
+  FutureOr<void> _toggleConfirmPasswordVisibility(ToggleConfirmPasswordVisibility event, Emitter<VisibilityState> emit) {
+    emit(state.copyWith(isConfirmPasswordVisible: !state.isConfirmPasswordVisible));
   }
 }

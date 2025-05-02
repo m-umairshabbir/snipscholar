@@ -13,7 +13,7 @@ class NotificationService {
           color: Colors.white,
         ),
         duration: const Duration(seconds: 3),
-        margin: const EdgeInsets.symmetric(horizontal: 8,vertical: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
         borderRadius: BorderRadius.circular(8),
         backgroundColor: color,
         flushbarPosition: FlushbarPosition.TOP,

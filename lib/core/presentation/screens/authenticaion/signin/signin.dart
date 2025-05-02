@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:snipscholar/core/Config/colors/colors.dart';
 import 'package:snipscholar/core/bloc/visibility/visibility_bloc.dart';
-import 'package:snipscholar/core/bloc/visibility/visibility_event.dart';
-import 'package:snipscholar/core/bloc/visibility/visibility_state.dart';
 import 'package:snipscholar/core/presentation/components/btnCustom/custom_button.dart';
 import 'package:snipscholar/core/presentation/components/textField/custom_field.dart';
 import 'package:snipscholar/core/presentation/screens/authenticaion/signup/signup.dart';
@@ -16,6 +14,8 @@ class SignInScreen extends StatelessWidget {
   final _formKey=GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  SignInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

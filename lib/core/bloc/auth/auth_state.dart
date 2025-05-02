@@ -1,40 +1,36 @@
 part of 'auth_bloc.dart';
 
-class AuthStates extends Equatable {
-  final String fullName;
-  final String email;
-  final String password;
-  final String confirmPassword;
-  final String message;
+class AuthState extends Equatable {
   final bool isLoading;
+  final String message;
+  final Color flushbarBgc;
+  final Icon flushbarIcon;
+  final bool authState;
 
-  const AuthStates({
-    this.fullName = '',
-    this.email = '',
-    this.password = '',
-    this.confirmPassword = '',
-    this.message = '',
+  const AuthState({
+    this.flushbarBgc = Colors.transparent,
     this.isLoading = false,
+    this.authState=false,
+    this.message = '',
+    this.flushbarIcon = const Icon(Icons.info), // Default icon
   });
 
-  AuthStates copyWith({
-    String? fullName,
-    String? email,
-    String? password,
-    String? confirmPassword,
-    String? message,
+  AuthState copyWith({
     bool? isLoading,
+    String? message,
+    Color? flushbarBgc,
+    Icon? flushbarIcon, // Allows dynamic icon
+    bool? authState,
   }) {
-    return AuthStates(
-      fullName: fullName ?? this.fullName,
-      email: email ?? this.email,
-      password: password ?? this.password,
-      confirmPassword: confirmPassword ?? this.confirmPassword,
-      message: message ?? this.message,
+    return AuthState(
       isLoading: isLoading ?? this.isLoading,
+      message: message ?? this.message,
+      flushbarBgc: flushbarBgc ?? this.flushbarBgc,
+      flushbarIcon: flushbarIcon ?? this.flushbarIcon,
+      authState: authState ?? this.authState,
     );
   }
 
   @override
-  List<Object?> get props => [fullName, email, password, confirmPassword, message, isLoading];
+  List<Object?> get props => [isLoading, message, flushbarBgc, flushbarIcon,authState];
 }
