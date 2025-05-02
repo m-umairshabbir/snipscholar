@@ -27,4 +27,19 @@ class AuthRepository {
       throw Exception("Registration failed: ${e.toString()}");
     }
   }
+  Future<UserCredential?> loginUser({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+        email: email.trim(),
+        password: password.trim(),
+      );
+      return userCredential;
+    } on FirebaseAuthException catch (e) {
+      // Handle different errors like wrong-password, user-not-found, etc.
+      throw Exception("Login Failed");
+    }
+  }
 }

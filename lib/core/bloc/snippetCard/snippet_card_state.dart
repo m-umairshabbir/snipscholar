@@ -1,6 +1,14 @@
 part of 'snippet_card_bloc.dart';
+// State
+class SnippetState extends Equatable {
+  final Map<String, bool> expandedMap;
 
-@immutable
-sealed class SnippetCardState {}
+  const SnippetState({this.expandedMap = const {}});
 
-final class SnippetCardInitial extends SnippetCardState {}
+  SnippetState copyWith({Map<String, bool>? expandedMap}) {
+    return SnippetState(expandedMap: expandedMap ?? this.expandedMap);
+  }
+
+  @override
+  List<Object?> get props => [expandedMap];
+}

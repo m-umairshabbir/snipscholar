@@ -3,4 +3,5 @@ class RouteNames{
   static const String signUpScreen="signup";
   static const String signInScreen="signin";
   static const String testScreen="test_screen";
+  static const String landingScreen="landing_screen";
 }

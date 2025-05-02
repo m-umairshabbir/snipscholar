@@ -58,26 +58,24 @@ class SignUpScreen extends StatelessWidget {
               flex: 7,
               child: Padding(
                 padding: const EdgeInsets.all(32.0),
-                child: BlocListener<AuthBloc, AuthState>(
+                child:BlocListener<AuthBloc, AuthState>(
+                  listenWhen: (prev, cur) => prev.message != cur.message,
                   listener: (context, state) {
-                    if (state.message.isNotEmpty) {
-                      // Show Flushbar based on the message
-                      CustomFlushBar.showCustomFlushBar(
-                        message: state.message,
-                        backgroundColor: state.flushbarBgc ?? Colors.red,
-                        icon: state.flushbarIcon,
-                        duration: const Duration(seconds: 3),
-                        context: context,
-                      ).show(context);
-                    }
-                    if (state.authState) {
-                      Future.delayed(const Duration(seconds: 3), () {
-                        if (context.mounted) {
-                          Navigator.pushNamedAndRemoveUntil(context,
-                              RouteNames.testScreen, (routes) => false);
-                        }
-                      });
-                    }
+                    final success = state.authState;
+                    CustomFlushBar.showCustomFlushBar(
+                      context: context,
+                      message: state.message,
+                      icon: Icon(
+                        success
+                            ? Icons.check_circle_outline_rounded
+                            : Icons.error_outline,
+                        color: Colors.white,
+                      ),
+                      backgroundColor: success
+                          ? Colors.teal
+                          : Colors.red,
+                      duration: const Duration(seconds: 3),
+                    );
                   },
                   child: Form(
                     key: _formKey,
@@ -166,7 +164,9 @@ class SignUpScreen extends StatelessWidget {
                                 onPressed: () {
                                   if (_formKey.currentState?.validate() ??
                                       false) {
-                                    context.read<AuthBloc>().add(SubmitButton(
+                                    context
+                                        .read<AuthBloc>()
+                                        .add(RegisterUserEvent(
                                           fullName: nameController.text.trim(),
                                           email: emailController.text.trim(),
                                           password: passwordController.text,

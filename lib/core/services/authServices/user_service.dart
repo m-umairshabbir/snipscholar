@@ -17,7 +17,6 @@ class UserService {
         'groups': [],
         "createdAt": FieldValue.serverTimestamp(),
       });
-      await LocalStorageService.saveLoginState(true);
     } catch (e) {
       throw Exception("User creation failed: ${e.toString()}");
     }

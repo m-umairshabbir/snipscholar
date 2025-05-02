@@ -7,13 +7,13 @@ abstract class AuthEvent extends Equatable {
   List<Object?> get props => [];
 }
 
-class SubmitButton extends AuthEvent {
+class RegisterUserEvent extends AuthEvent {
   final String fullName;
   final String email;
   final String password;
   final String confirmPassword;
 
-  const SubmitButton({
+  const RegisterUserEvent({
     required this.fullName,
     required this.email,
     required this.password,
@@ -23,16 +23,17 @@ class SubmitButton extends AuthEvent {
   @override
   List<Object?> get props => [fullName, email, password, confirmPassword];
 }
-class ShowFlushbar extends AuthEvent {
-  final String message;
-  final Color flushbarBgc;
-  final Icon flushbarIcon;
-  const ShowFlushbar({
-    required this.message,
-    required this.flushbarBgc,
-    required this.flushbarIcon
+
+class LoginUserEvent extends AuthEvent {
+  final String email;
+  final String password;
+
+  const LoginUserEvent({
+    required this.email,
+    required this.password,
   });
 
   @override
-  List<Object?> get props => [message, flushbarBgc,flushbarIcon];
+  List<Object?> get props => [email, password,];
 }
+

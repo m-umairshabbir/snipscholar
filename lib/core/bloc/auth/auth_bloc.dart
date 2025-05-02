@@ -12,17 +12,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository authRepository;
 
   AuthBloc({required this.authRepository}) : super(const AuthState()) {
-    on<SubmitButton>(_onSubmit);
-    on<ShowFlushbar>(_onShowFlushbar);
+    on<RegisterUserEvent>(_onRegister);
+
+    on<LoginUserEvent>(_onLogin);
   }
 
-  Future<void> _onSubmit(SubmitButton event, Emitter<AuthState> emit) async {
-    emit(state.copyWith(isLoading: true, message: ""));
-
-    if (event.password != event.confirmPassword) {
-      emit(state.copyWith(isLoading: false, message: "Passwords do not match"));
-      return;
-    }
+  Future<void> _onRegister(RegisterUserEvent event, Emitter<AuthState> emit) async {
 
     try {
       await authRepository.registerUser(
@@ -31,10 +26,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         password: event.password,
       );
       emit(state.copyWith(isLoading: false, message: "Registration successful",authState: true));
-      add(const ShowFlushbar(
-        message: "Registration successful",
-        flushbarBgc: Colors.green, flushbarIcon: Icon(Icons.check,color: Colors.white,), // Success color
-      ));
+
     } catch (e) {
       String errorMessage = "An error occurred. Please try again."; // Default message
 
@@ -49,17 +41,53 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       // You can add more specific exceptions here if needed
 
       // Triggering the Flushbar event on error
-      emit(state.copyWith(isLoading: false, message: errorMessage));
-      add(ShowFlushbar(
-        message: errorMessage,  // Concise error message
-        flushbarBgc: Colors.red,
-        flushbarIcon: const Icon(Icons.error,color: Colors.white,)// Error color
-      ));
+      emit(state.copyWith(isLoading: false, authState:false,message: errorMessage));
+
     }
 
   }
 
-  FutureOr<void> _onShowFlushbar(ShowFlushbar event, Emitter<AuthState> emit) {
-    emit(state.copyWith(message: event.message, flushbarBgc: event.flushbarBgc));
+
+
+  Future<void> _onLogin(LoginUserEvent event, Emitter<AuthState> emit) async {
+    emit(state.copyWith(isLoading: true,authState: false, message: ""));
+
+    try {
+      final userCredentials = await authRepository.loginUser(
+        email: event.email,
+        password: event.password,
+      );
+
+      if (userCredentials != null) {
+        emit(state.copyWith(
+          isLoading: false,
+          message: "Login successful",
+          authState: true,
+        ));
+
+
+      }else{
+        emit(state.copyWith(
+          isLoading: false,
+          message: "Login failed",
+          authState: false,
+        ));
+      }
+    } catch (e) {
+      String errorMessage = "Login failed. Please try again.";
+
+      if (e is SocketException) {
+        errorMessage = "No internet connection.";
+      } else if (e is HttpException) {
+        errorMessage = "Unable to reach server.";
+      } else if (e is FormatException) {
+        errorMessage = "Invalid response format.";
+      }
+
+      emit(state.copyWith(isLoading: false,authState: false, message: errorMessage));
+
+    }
   }
+
+
 }
