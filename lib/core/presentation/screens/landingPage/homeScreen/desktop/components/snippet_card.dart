@@ -27,7 +27,7 @@ class SnippetCard extends StatelessWidget {
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 400),
             margin: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8),
-            height: isExpanded ? 280 : 60,
+            height: isExpanded ? 280 : 160,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
               gradient: LinearGradient(
@@ -71,11 +71,10 @@ class SnippetCard extends StatelessWidget {
                       style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white)),
                   const SizedBox(height: 8),
                   Text(content,
-                      maxLines: isExpanded ? 5 : 1,
+                      maxLines: isExpanded ? 4: 5,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(fontSize: 14, color: Colors.white70)),
                   const Spacer(),
-
                   Center(
                     child: IconButton(
                       icon: Icon(

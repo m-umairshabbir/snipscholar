@@ -43,7 +43,9 @@ class DummyDataScreen extends StatelessWidget {
 
     await snippets.doc('snippet_abc').set({
       'title': 'Async/Await in JS',
-      'content': 'const fetchData = async () => { /* ... */ };',
+      'content': 'that invests in bold founders with capital-efficient, disruptive, technology companies that can leverage capital and coaching to ..'
+          'that invests in bold founders with capital-efficient, disruptive, technology companies that can leverage capital and coaching to ..'
+          'that invests in bold founders with capital-efficient, disruptive, technology companies that can leverage capital and coaching to ..',
       'category': 'JavaScript',
       'createdBy': uid,
       'createdAt': Timestamp.now(),

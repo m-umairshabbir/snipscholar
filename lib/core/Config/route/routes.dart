@@ -5,7 +5,6 @@ import 'package:snipscholar/core/presentation/screens/landingPage/landing_screen
 import 'package:snipscholar/core/presentation/screens/splash/splash.dart';
 import 'package:snipscholar/core/presentation/screens/testScreen/test_screen.dart';
 import 'package:snipscholar/dummyDatabase/dummy_screen.dart';
-
 import '../../presentation/screens/authenticaion/signup/signup.dart';
 
 class Routes{
@@ -20,6 +19,8 @@ class Routes{
       case RouteNames.testScreen:
         return MaterialPageRoute(builder: (context)=>  TestScreen());
       case RouteNames.landingScreen:
+        return MaterialPageRoute(builder: (context)=>  LandingScreen());
+      case RouteNames.dummyScreen:
         return MaterialPageRoute(builder: (context)=>  DummyDataScreen());
       default:
         return MaterialPageRoute(builder: (context)=> const TestScreen());
